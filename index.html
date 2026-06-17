@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>نيف | Neve Luxury Home Spa</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Playfair+Display:wght@400;600&family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* Exact Color Palette */
+        :root {
+            --mauve: #B5A8B7;
+            --lilac: #DCC9E1;
+            --dusty: #C8CBCF;
+            --sage: #9BAE9A;
+            --olive: #7A8A73;
+            --gold: #D4A537;
+            
+            --bg-light: #FDFBFA; 
+            --white: #FFFFFF;
+            --text-dark: #4A5345; 
+            
+            --glass-bg: rgba(255, 255, 255, 0.6);
+            --glass-border: rgba(200, 203, 207, 0.3); 
+            
+            --font-heading: 'Amiri', serif;
+            --font-en: 'Playfair Display', serif;
+            --font-body: 'Tajawal', sans-serif;
+        }
+
+        /* Strict Reset */
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            max-width: 100%;
+            overflow-x: hidden;
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            font-family: var(--font-body);
+            line-height: 1.8;
+            scroll-behavior: smooth;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: var(--font-heading);
+            color: var(--olive);
+            font-weight: 700;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        img {
+            max-width: 100%;
+            display: block;
+            height: auto;
+        }
+
+        /* Animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 1.2s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .delay-1 { transition-delay: 0.1s; }
+        .delay-2 { transition-delay: 0.2s; }
+        .delay-3 { transition-delay: 0.3s; }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 12px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(253, 251, 250, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            z-index: 1000;
+            border-bottom: 1px solid var(--dusty);
+            transition: all 0.3s ease;
+        }
+
+        .menu-btn {
+            font-size: 1.4rem;
+            color: var(--olive);
+            cursor: pointer;
+            z-index: 1002;
+            transition: transform 0.3s ease;
+        }
+
+        .logo-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .brand-logo {
+            max-height: 50px; 
+            width: auto;
+            object-fit: contain;
+            transition: transform 0.3s ease;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.05));
+        }
+        
+        .footer-logo .brand-logo {
+            max-height: 80px; 
+            margin-bottom: 15px;
+            filter: brightness(0) invert(1) drop-shadow(0 2px 4px rgba(0,0,0,0.2)); 
+        }
+
+        /* Nav Dropdown */
+        .nav-dropdown {
+            position: fixed;
+            top: 70px;
+            right: 5%;
+            width: 250px;
+            background: rgba(255, 255, 255, 0.85); 
+            backdrop-filter: blur(30px) saturate(140%);
+            -webkit-backdrop-filter: blur(30px) saturate(140%);
+            z-index: 999;
+            border-radius: 24px;
+            border: 1px solid var(--lilac); 
+            padding: 24px 16px;
+            box-shadow: 0 20px 50px rgba(181, 168, 183, 0.2);
+            transform: translateY(-20px) scale(0.95);
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .nav-dropdown.open {
+            top: 90px; 
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0) scale(1);
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            text-align: right;
+        }
+
+        .nav-links a {
+            font-family: var(--font-body);
+            font-size: 1.05rem;
+            color: var(--olive);
+            display: flex;
+            align-items: center;
+            padding: 10px 14px;
+            border-radius: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            background: rgba(220, 201, 225, 0.3);
+            color: var(--mauve);
+            padding-right: 20px;
+        }
+
+        .nav-links i {
+            margin-left: 10px;
+            font-size: 0.95rem;
+            color: var(--sage);
+        }
+
+        /* Buttons */
+        .btn-primary, .btn-secondary {
+            padding: 14px 30px;
+            border-radius: 50px;
+            font-size: 1.05rem;
+            font-family: var(--font-body);
+            font-weight: 500;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.4s ease;
+            cursor: pointer;
+            width: auto;
+        }
+
+        .btn-primary {
+            background-color: var(--mauve);
+            color: var(--white);
+            border: none;
+            box-shadow: 0 10px 20px rgba(181, 168, 183, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            background-color: var(--olive);
+            box-shadow: 0 15px 30px rgba(122, 138, 115, 0.3);
+        }
+
+        .btn-secondary {
+            background: var(--glass-bg);
+            color: var(--olive);
+            border: 1px solid var(--olive);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(122, 138, 115, 0.1); 
+            transform: translateY(-3px);
+        }
+
+        .contact-btn-header {
+            border: 1px solid var(--mauve);
+            color: var(--mauve);
+            padding: 8px 18px;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .contact-btn-header:hover {
+            background-color: var(--mauve);
+            color: var(--white);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            min-height: 100dvh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            padding: 120px 20px 40px;
+            background: url('WhatsApp Image 2026-06-17 at 8.02.19 PM.jpeg') center/cover no-repeat fixed;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(to bottom, rgba(253, 251, 250, 0.6), rgba(253, 251, 250, 0.95));
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            width: 100%;
+        }
+
+        .hero h1 {
+            font-size: clamp(2rem, 5vw + 0.5rem, 4.2rem);
+            margin-bottom: 20px;
+            line-height: 1.3;
+            color: var(--olive);
+        }
+
+        .hero p {
+            font-size: clamp(0.95rem, 1.5vw + 0.5rem, 1.3rem);
+            color: var(--text-dark);
+            margin-bottom: 35px;
+        }
+
+        .hero-btns {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+        }
+
+        /* Section Spacing Configuration */
+        .section-padding {
+            padding: clamp(60px, 8vw, 100px) 24px;
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: clamp(35px, 5vw, 50px);
+        }
+        
+        .section-title h2 {
+            font-size: clamp(1.8rem, 4vw, 2.8rem);
+            color: var(--olive);
+            position: relative;
+            display: inline-block;
+            padding-bottom: 15px;
+        }
+
+        .section-title h2::after {
+            content: '✦';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.8rem;
+            color: var(--gold);
+        }
+
+        /* About Section */
+        .about-wrapper {
+            width: 100%;
+        }
+
+        .about {
+            text-align: center;
+            max-width: 800px;
+        }
+
+        .about p {
+            font-size: clamp(1rem, 1.5vw + 0.2rem, 1.2rem);
+            line-height: 1.9;
+        }
+
+        /* Services Grid */
+        .services-wrapper {
+            width: 100%;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+            width: 100%;
+        }
+
+        .glass-card {
+            background: var(--white);
+            border: 1px solid var(--dusty);
+            border-radius: 24px;
+            padding: 40px 20px;
+            text-align: center;
+            transition: all 0.4s ease;
+            box-shadow: 0 10px 30px rgba(200, 203, 207, 0.2);
+        }
+
+        .glass-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--lilac);
+            box-shadow: 0 15px 35px rgba(181, 168, 183, 0.3);
+        }
+
+        .glass-card i {
+            font-size: 2.3rem;
+            color: var(--sage);
+            margin-bottom: 20px;
+        }
+
+        .glass-card h3 {
+            font-size: clamp(1.3rem, 2vw, 1.6rem);
+            margin-bottom: 12px;
+            color: var(--olive);
+        }
+
+        /* Features */
+        .features-wrapper {
+            background: var(--white);
+            width: 100%;
+            border-top: 1px solid var(--dusty);
+            border-bottom: 1px solid var(--dusty);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+        }
+
+        .feature-icon-box {
+            width: 60px;
+            height: 60px;
+            background: var(--bg-light);
+            border: 1px solid var(--mauve);
+            border-radius: 16px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.5rem;
+            color: var(--mauve);
+            flex-shrink: 0;
+        }
+
+        .feature-text h4 {
+            color: var(--olive);
+            margin-bottom: 5px;
+        }
+
+        /* Gallery Structure (Updated to 2 items) */
+        .gallery-wrapper {
+            width: 100%;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-auto-rows: 400px;
+            gap: 20px;
+            width: 100%;
+        }
+
+        .gallery-item {
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid var(--dusty);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(rgba(253, 251, 250, 0.8), rgba(253, 251, 250, 0.95)), url('WhatsApp Image 2026-06-17 at 8.02.19 PM (1).jpeg') center/cover no-repeat;
+            width: 100%;
+            text-align: center;
+        }
+
+        .cta-container {
+            max-width: 600px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .locations {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            width: 100%;
+            max-width: 450px;
+            margin: 25px auto 40px;
+            padding: 0 10px;
+        }
+
+        .location-badge {
+            background: var(--white);
+            border: 1px solid var(--dusty);
+            color: var(--olive);
+            padding: 12px 15px;
+            border-radius: 14px;
+            font-size: 0.95rem;
+            text-align: center;
+            width: 100%;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--olive);
+            padding: 50px 24px 30px;
+            text-align: center;
+            width: 100%;
+            color: var(--white);
+        }
+
+        .footer-logo {
+            margin-bottom: 25px;
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 35px;
+        }
+
+        .social-icons a {
+            width: 42px;
+            height: 42px;
+            border: 1px solid var(--sage);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--white);
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+        }
+
+        .social-icons a:hover {
+            background-color: var(--white);
+            color: var(--olive);
+        }
+
+        .footer-bottom {
+            color: var(--dusty);
+            font-size: 0.85rem;
+            padding-top: 25px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Responsive Breakpoints */
+        @media (max-width: 992px) {
+            .services-grid { 
+                grid-template-columns: repeat(2, 1fr); 
+            }
+            .gallery-grid {
+                grid-auto-rows: 300px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .section-padding {
+                padding: 50px 20px;
+            }
+            
+            .services-grid, .features-grid, .gallery-grid { 
+                grid-template-columns: 1fr;
+                width: 100%;
+            }
+
+            .gallery-grid {
+                grid-auto-rows: 280px;
+            }
+
+            .hero-btns { 
+                flex-direction: column; 
+                width: 100%;
+                align-items: center;
+            }
+            
+            .btn-primary, .btn-secondary { 
+                width: 100%;
+                max-width: 320px;
+            }
+            
+            .locations {
+                grid-template-columns: repeat(2, 1fr);
+                max-width: 100%;
+            }
+            
+            .nav-dropdown {
+                width: 90%;
+                right: 5%;
+            }
+
+            .brand-logo {
+                max-height: 40px; 
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="menu-btn" id="menuBtn"><i class="fa-solid fa-bars-staggered"></i></div>
+        
+        <div class="logo-container">
+            <img src="Screenshot 2026-06-17 200852.png" alt="Neve Logo" class="brand-logo">
+        </div>
+
+        <a href="#contact" class="contact-btn-header">احجزي الآن</a>
+    </header>
+
+    <div class="nav-dropdown" id="navDropdown">
+        <ul class="nav-links">
+            <li><a href="#" class="nav-link-item"><i class="fa-solid fa-house"></i> الرئيسية</a></li>
+            <li><a href="#about" class="nav-link-item"><i class="fa-solid fa-circle-info"></i> من نحن</a></li>
+            <li><a href="#services" class="nav-link-item"><i class="fa-solid fa-hand-holding-heart"></i> خدماتنا</a></li>
+            <li><a href="#features" class="nav-link-item"><i class="fa-solid fa-star"></i> مميزاتنا</a></li>
+            <li><a href="#gallery" class="nav-link-item"><i class="fa-solid fa-images"></i> المعرض</a></li>
+            <li><a href="#contact" class="nav-link-item"><i class="fa-solid fa-envelope"></i> اتصلي بنا</a></li>
+        </ul>
+    </div>
+
+    <section class="hero">
+        <div class="hero-content reveal">
+            <h1>فخامة السبا في مساحتكِ الخاصة</h1>
+            <p>خدمات مساج، بوديكير، ومناكير فاخرة تصلكِ أينما كنتِ، لتجربة استرخاء لا تُضاهى.</p>
+            <div class="hero-btns">
+                <a href="#" class="btn-primary"><i class="fa-brands fa-whatsapp"></i> احجزي موعدكِ</a>
+                <a href="tel:920000000" class="btn-secondary"><i class="fa-solid fa-phone"></i> تواصل معنا</a>
+            </div>
+        </div>
+    </section>
+
+    <div class="about-wrapper" id="about">
+        <section class="about section-padding reveal">
+            <h2>عناية تليق بكِ</h2>
+            <p>
+                في "نيف"، نعيد تعريف مفهوم الرفاهية المنزلية. نحن نجلب لكِ تجربة الصالون والسبا الفندقية الفاخرة حتى باب منزلكِ. 
+                أخصائياتنا المعتمدات يقدمن لكِ أرقى خدمات العناية باليدين والقدمين والمساج الاسترخائي 
+                باستخدام أفضل المنتجات وأدوات معقمة بالكامل، لتعيشي لحظات من الهدوء والجمال بكل خصوصية.
+            </p>
+        </section>
+    </div>
+
+    <div class="services-wrapper" id="services">
+        <section class="services section-padding">
+            <div class="section-title reveal">
+                <h2>خدماتنا الفاخرة</h2>
+                <p>دلال متكامل مصمم خصيصاً لراحتكِ</p>
+            </div>
+            <div class="services-grid">
+                <div class="glass-card reveal delay-1">
+                    <i class="fa-solid fa-spa"></i>
+                    <h3>مساج استرخائي</h3>
+                    <p>جلسات مساج علاجية واسترخائية لتخفيف التوتر، استعادة التوازن، وتجديد نشاطكِ وحيويتكِ.</p>
+                </div>
+                <div class="glass-card reveal delay-2">
+                    <i class="fa-solid fa-hands-bubbles"></i>
+                    <h3>مناكير (Manicure)</h3>
+                    <p>عناية متكاملة بجمال يديكِ، تنظيف، تقشير، وطلاء أظافر باستخدام أرقى الماركات العالمية.</p>
+                </div>
+                <div class="glass-card reveal delay-3">
+                    <i class="fa-solid fa-shoe-prints"></i>
+                    <h3>بوديكير (Pedicure)</h3>
+                    <p>دلال حقيقي لقدميكِ يشمل إزالة الجلد الميت، الترطيب العميق، والعناية الفائقة بالأظافر.</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <div class="features-wrapper" id="features">
+        <section class="features section-padding">
+            <div class="section-title reveal">
+                <h2>لماذا نيف؟</h2>
+                <p>معايير فندقية في راحة منزلكِ</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-item reveal delay-1">
+                    <div class="feature-icon-box"><i class="fa-solid fa-gem"></i></div>
+                    <div class="feature-text">
+                        <h4>منتجات عالمية فاخرة</h4>
+                        <p>نستخدم فقط أفضل الزيوت العطرية ومنتجات العناية بالأظافر لضمان نتائج مثالية.</p>
+                    </div>
+                </div>
+                <div class="feature-item reveal delay-2">
+                    <div class="feature-icon-box"><i class="fa-solid fa-shield-heart"></i></div>
+                    <div class="feature-text">
+                        <h4>تعقيم وأمان تام</h4>
+                        <p>أدواتنا مغلفة ومعقمة بأعلى المعايير الطبية لضمان سلامتكِ وعناية صحية لكِ.</p>
+                    </div>
+                </div>
+                <div class="feature-item reveal delay-1">
+                    <div class="feature-icon-box"><i class="fa-solid fa-user-tie"></i></div>
+                    <div class="feature-text">
+                        <h4>أخصائيات محترفات</h4>
+                        <p>فريقنا مدرب على أعلى مستوى لتقديم خدمة راقية تتجاوز توقعاتكِ.</p>
+                    </div>
+                </div>
+                <div class="feature-item reveal delay-2">
+                    <div class="feature-icon-box"><i class="fa-solid fa-house-lock"></i></div>
+                    <div class="feature-text">
+                        <h4>خصوصية مطلقة</h4>
+                        <p>استمتعي بكامل خدماتنا في مساحتكِ الخاصة، في الوقت الذي يناسبكِ.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Updated Gallery Section (Now containing only 2 images) -->
+    <div class="gallery-wrapper" id="gallery">
+        <section class="gallery section-padding">
+            <div class="section-title reveal">
+                <h2>أجواء نيف</h2>
+                <p>لمحات من تجربة السبا الفاخرة</p>
+            </div>
+            <div class="gallery-grid reveal delay-1">
+                <div class="gallery-item">
+                    <img src="WhatsApp Image 2026-06-17 at 8.02.19 PM (1).jpeg" alt="Neve Violet Towels and Candle">
+                </div>
+                <div class="gallery-item">
+                    <img src="WhatsApp Image 2026-06-17 at 8.02.19 PM.jpeg" alt="Neve Essential Oils">
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <section class="cta-section section-padding" id="contact">
+        <div class="cta-container reveal">
+            <div class="section-title" style="margin-bottom: 20px;">
+                <h2 style="color: var(--olive);">دليلي نفسكِ الآن</h2>
+                <p style="color: var(--text-dark);">نغطي كافة أحياء مدينة الرياض</p>
+            </div>
+            
+            <div class="locations">
+                <span class="location-badge">شمال الرياض</span>
+                <span class="location-badge">شرق الرياض</span>
+                <span class="location-badge">غرب الرياض</span>
+                <span class="location-badge">جنوب الرياض</span>
+            </div>
+
+            <div class="hero-btns">
+                <a href="#" class="btn-primary"><i class="fa-brands fa-whatsapp"></i> حجز عبر الواتساب</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="logo-container footer-logo">
+            <img src="Screenshot 2026-06-17 200852.png" alt="Neve Logo" class="brand-logo">
+        </div>
+        <div class="social-icons">
+            <a href="#"><i class="fa-brands fa-instagram"></i></a>
+            <a href="#"><i class="fa-brands fa-snapchat"></i></a>
+            <a href="#"><i class="fa-brands fa-tiktok"></i></a>
+        </div>
+        <div class="footer-bottom">
+            &copy; 2026 نيف للسبا المنزلي (خدمات نسائية) - جميع الحقوق محفوظة.
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const menuBtn = document.getElementById('menuBtn');
+            const navDropdown = document.getElementById('navDropdown');
+            const menuIcon = menuBtn.querySelector('i');
+            const navLinks = document.querySelectorAll('.nav-link-item');
+            const reveals = document.querySelectorAll('.reveal');
+
+            // Dropdown Toggle Logic
+            menuBtn.addEventListener('click', (e) => {
+                e.stopPropagation(); 
+                navDropdown.classList.toggle('open');
+                
+                if (navDropdown.classList.contains('open')) {
+                    menuIcon.classList.remove('fa-bars-staggered');
+                    menuIcon.classList.add('fa-xmark');
+                } else {
+                    menuIcon.classList.remove('fa-xmark');
+                    menuIcon.classList.add('fa-bars-staggered');
+                }
+            });
+
+            // Close dropdown securely when an item is selected
+            navLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    navDropdown.classList.remove('open');
+                    menuIcon.classList.remove('fa-xmark');
+                    menuIcon.classList.add('fa-bars-staggered');
+                });
+            });
+
+            // Close dropdown if clicked anywhere else on the screen
+            document.addEventListener('click', (e) => {
+                if (!navDropdown.contains(e.target) && !menuBtn.contains(e.target)) {
+                    navDropdown.classList.remove('open');
+                    menuIcon.classList.remove('fa-xmark');
+                    menuIcon.classList.add('fa-bars-staggered');
+                }
+            });
+
+            // Intersection Observer for Scroll Reveals
+            const revealOnScroll = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                    }
+                });
+            }, {
+                threshold: 0.05,
+                rootMargin: "0px 0px -40px 0px"
+            });
+
+            reveals.forEach(reveal => {
+                revealOnScroll.observe(reveal);
+            });
+            
+            // Header scrolling background change
+            const header = document.querySelector('header');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 30) {
+                    header.style.background = 'rgba(253, 251, 250, 0.95)';
+                    header.style.borderBottom = '1px solid var(--dusty)';
+                    header.style.boxShadow = '0 5px 20px rgba(200, 203, 207, 0.3)';
+                } else {
+                    header.style.background = 'rgba(253, 251, 250, 0.85)';
+                    header.style.boxShadow = 'none';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
